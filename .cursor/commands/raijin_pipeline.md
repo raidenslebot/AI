@@ -20,7 +20,7 @@ Enforces order: Scout → Implementer (in worktree) → Verifier → Red Team �
 
    **E) Librarian:** Run `/raijin_spawn librarian "Record decision + provenance index for <objective>"`. Save the full output to `docs/run_evidence/<run_id>_librarian.md`. If Librarian did not update at least one durable artifact, stop and output "Next required: Librarian must write or update one artifact in docs/decisions/, docs/plans/, or docs/provenance/."
 
-   **F) Guard on main:** Run `/raijin_guard` from **main** (repo root). Save the full output to `docs/run_evidence/latest_guard.md`. If Guard is FAIL and there are non-allowlisted findings, stop and output "Next required: Guard FAIL with non-allowlisted findings; allowlist or remove banned patterns, then re-run Guard."
+   **F) Guard on main:** Run `/raijin_guard` from **main** (repo root). Save the full output to `docs/run_evidence/latest_guard.md`. If Guard is FAIL, stop and output "Next required: Guard FAIL; remove all banned patterns until Guard PASS, then re-run Guard."
 
    **G) Promote:** Run `/raijin_promote`. Use all saved evidence (latest_guard.md, _verifier, _implementer, _redteam, _librarian). Save the full output to `docs/run_evidence/<run_id>_promote.md`. If Verdict is DO NOT PROMOTE, output "Next required: &lt;one line from promote output&gt;."
 

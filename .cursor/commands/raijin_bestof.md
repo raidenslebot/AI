@@ -18,7 +18,7 @@ Example: `/raijin_bestof 3 "Refactor InternetAcquisition to real implementation 
 5. **Verifier comparison:** Run Verifier (or equivalent comparison) over all N attempts. Compare by:
    - **Build/test pass:** Prefer attempts that passed both.
    - **Minimal diff footprint:** Prefer smaller file-change count or smaller line delta vs main.
-   - **No banned patterns introduced:** Prefer attempts with no new FAIL_BLOCKER in full-repo scan (or allowlisted).
+   - **No banned patterns introduced:** Prefer attempts with no new FAIL_BLOCKER in full-repo scan (Purist: zero matches required for Guard PASS).
    Select the **best** attempt (e.g. first that passes build+test and has no new banned patterns; tie-break by minimal diff). If none pass, select the one with fewest failures or report "No winning attempt; fix and re-run."
 6. **Output:** Print:
    - **Selected attempt:** &lt;i&gt; (worktree .worktrees/&lt;slug&gt;_i, branch raijin/&lt;slug&gt;_i).

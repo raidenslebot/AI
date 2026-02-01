@@ -33,4 +33,4 @@
 - [ ] Provenance JSON written (even when files changed = 0).
 - [ ] PR-like diff summary produced.
 
-Promotion also requires Guard PASS (or allowlisted), Verifier pass (full-repo or Guard cited), Red Team pass (≥2 adversarial checks), and Librarian artifact. Use a worktree when implementing so main stays clean until promotion.
+Promotion also requires Guard PASS, Verifier pass (full-repo or Guard cited), Red Team pass (≥2 adversarial checks), and Librarian artifact. Use a worktree when implementing so main stays clean until promotion.
