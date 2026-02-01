@@ -17,7 +17,7 @@ All pipeline outputs are written under `docs/run_evidence/` so promotion and aud
 |------|--------|
 | `<run_id>_scout.md` | Scout output: relevant files, touch set, risks. |
 | `<run_id>_implementer.md` | Implementer output: files changed, build/test, provenance path, PR summary. |
-| `<run_id>_verifier.md` | Verifier output: build/test, GuardStatus, AllowlistCoverage, verdict. |
+| `<run_id>_verifier.md` | Verifier output: build/test, GuardStatus, verdict. |
 | `<run_id>_redteam.md` | Red Team output: adversarial checks, verdict. |
 | `<run_id>_librarian.md` | Librarian output: artifacts updated, invariants. |
 | `latest_guard.md` | Most recent /raijin_guard output (used by /raijin_promote as Gate 0 evidence). |
@@ -36,6 +36,10 @@ If any gate fails, the pipeline stops and writes "Next required:"; the user fixe
 Example: `20260131_143000_bootstrapping_policy`.
 
 This keeps evidence files unique and sortable by time.
+
+## Guard Gauntlet
+
+Guard is a full-spectrum weakness scanner (Purist). See **docs/decisions/guard_gauntlet.md** for scan categories (banned language, empty-body heuristics, silent error absorption, debug residue, nondeterminism, harness integrity, provenance integrity) and next-fix selection rule.
 
 ## Commands that use this
 
