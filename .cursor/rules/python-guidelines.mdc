@@ -1,0 +1,23 @@
+---
+description: Python best practices – structure, typing, pytest, uv, Ruff
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python Guidelines
+
+- Clear project structure: separate directories for source, tests, docs, config.
+- Modular design: distinct files for models, services, utilities.
+- Configuration via environment variables.
+- Robust error handling and logging with context.
+- Comprehensive testing with pytest only (no unittest).
+- Docstrings and README; follow PEP 257.
+- Dependency management via uv and virtual environments.
+- Code style with Ruff; CI/CD with GitHub Actions or GitLab CI.
+
+For every Python file:
+
+- Add typing annotations to every function and class; explicit return types (including None where appropriate).
+- Add descriptive docstrings to all functions and classes.
+- Keep existing comments when editing.
+- Tests: use pytest or pytest plugins only; typing annotations and docstrings; place under ./tests; add __init__.py for packages under ./tests or ./src/<package_name>.

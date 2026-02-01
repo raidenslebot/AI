@@ -1,0 +1,409 @@
+<Window x:Class="RaijinUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RaijinUI"
+        mc:Ignorable="d"
+        Title="Raijin - ECGI (Entropy and Chaos Guided Intelligence)"
+        Height="900" Width="1400"
+        MinHeight="700" MinWidth="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#1a1a1a"
+        Foreground="#e0e0e0"
+        FontFamily="Consolas"
+        FontSize="12"
+        Icon="Resources/raijin.ico"
+        Closing="Window_Closing">
+
+    <Window.Resources>
+        <Style x:Key="RaijinButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3d3d3d"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#252525"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RaijinTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#252525"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+
+        <Style x:Key="RaijinListBoxStyle" TargetType="ListBox">
+            <Setter Property="Background" Value="#1a1a1a"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style x:Key="RaijinGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Background" Value="#222222"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Bar -->
+        <Border Grid.Row="0" Background="#2d2d2d" BorderBrush="#404040" BorderThickness="0,0,0,1" Padding="8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Image Source="Resources/raijin.ico" Width="24" Height="24" Margin="0,0,8,0"/>
+                    <TextBlock Text="Raijin - ECGI" FontSize="16" FontWeight="Bold" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock Text="{Binding SystemStatus.StateText}" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <TextBlock Text="{Binding SystemStatus.UptimeText}" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                    <Button Content="Settings" Style="{StaticResource RaijinButtonStyle}" Click="SettingsButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Panel - Status & Controls -->
+            <Border Grid.Column="0" Background="#222222" BorderBrush="#404040" BorderThickness="0,0,1,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8">
+
+                        <!-- System Status -->
+                        <GroupBox Header="System Status" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding SystemStatus.StateText}" FontWeight="Bold" Foreground="#00ff00"/>
+                                <TextBlock Text="{Binding SystemStatus.AutonomyText}" Margin="0,4,0,0"/>
+                                <TextBlock Text="{Binding SystemStatus.UserPresenceText}" Margin="0,4,0,0"/>
+                                <TextBlock Text="{Binding SystemStatus.TasksQueuedText}" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Hardware Status -->
+                        <GroupBox Header="Hardware Status" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding HardwareStatus.CpuText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding HardwareStatus.GpuText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding HardwareStatus.MemoryText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding HardwareStatus.StorageText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding HardwareStatus.NetworkText}" Margin="0,2"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Performance Metrics -->
+                        <GroupBox Header="Performance Metrics" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding PerformanceMetrics.TasksCompletedText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding PerformanceMetrics.SuccessRateText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding PerformanceMetrics.AverageResponseTimeText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding PerformanceMetrics.SystemEfficiencyText}" Margin="0,2"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Neural Status -->
+                        <GroupBox Header="Neural Status" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding NeuralStatus.EntropyText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding NeuralStatus.ConnectionsText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding NeuralStatus.EvolutionText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding NeuralStatus.ConfidenceText}" Margin="0,2"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Ethics Status -->
+                        <GroupBox Header="Ethics & Alignment" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding EthicsStatus.AlignmentText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding EthicsStatus.ValuesLearnedText}" Margin="0,2"/>
+                                <TextBlock Text="{Binding EthicsStatus.PersonalityText}" Margin="0,2"/>
+                                <ProgressBar Value="{Binding EthicsStatus.AlignmentScore}" Height="8" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Control Buttons -->
+                        <GroupBox Header="System Control" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <Button Content="Start Autonomous" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="StartAutonomousButton_Click" Margin="0,2"/>
+                                <Button Content="Stop Autonomous" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="StopAutonomousButton_Click" Margin="0,2"/>
+                                <Button Content="Pause/Resume" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="PauseResumeButton_Click" Margin="0,2"/>
+                                <Button Content="Emergency Stop" Style="{StaticResource RaijinButtonStyle}"
+                                        Background="#ff4444" Click="EmergencyStopButton_Click" Margin="0,2"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Autonomy Slider -->
+                        <GroupBox Header="Autonomy Level" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <Slider x:Name="AutonomySlider" Minimum="0" Maximum="1" Value="0.7"
+                                        TickFrequency="0.1" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                                <TextBlock Text="{Binding ElementName=AutonomySlider, Path=Value, StringFormat='Level: {0:P0}'}"
+                                          HorizontalAlignment="Center"/>
+                                <Button Content="Apply" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="ApplyAutonomyButton_Click" Margin="0,8,0,0"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Center Panel - Thought Stream & Screen View -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+
+                <!-- Thought Stream -->
+                <GroupBox Grid.Row="0" Header="Thought Stream - Consciousness Flow" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <ListBox x:Name="ThoughtStreamListBox" Style="{StaticResource RaijinListBoxStyle}"
+                             ItemsSource="{Binding ThoughtStream.Thoughts}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             SelectionMode="Single">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#404040" BorderThickness="0,0,0,1" Padding="4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0" Text="{Binding Timestamp}"
+                                                  Foreground="#888888" FontSize="10" Margin="0,0,8,0"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Content}"
+                                                  TextWrapping="Wrap" FontFamily="Consolas"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Type}"
+                                                  Foreground="#00aaff" FontSize="10" Margin="8,0,0,0"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </GroupBox>
+
+                <!-- Screen View -->
+                <GroupBox Grid.Row="1" Header="Screen Observation & Control" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="ScreenImage" Grid.Row="0" Stretch="Uniform"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,0">
+                            <Button Content="Capture Screen" Style="{StaticResource RaijinButtonStyle}"
+                                    Click="CaptureScreenButton_Click"/>
+                            <Button Content="Start Control" Style="{StaticResource RaijinButtonStyle}"
+                                    Click="StartControlButton_Click" Margin="8,0,0,0"/>
+                            <Button Content="Stop Control" Style="{StaticResource RaijinButtonStyle}"
+                                    Click="StopControlButton_Click" Margin="8,0,0,0"/>
+                            <TextBlock Text="{Binding ScreenControl.StatusText}" Margin="16,0,0,0"
+                                      VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+
+            <!-- Right Panel - Workspace & Task Management -->
+            <Border Grid.Column="2" Background="#222222" BorderBrush="#404040" BorderThickness="1,0,0,0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="8">
+
+                        <!-- Current Tasks -->
+                        <GroupBox Header="Active Tasks" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <ListBox x:Name="ActiveTasksListBox" Style="{StaticResource RaijinListBoxStyle}"
+                                     ItemsSource="{Binding TaskManager.ActiveTasks}"
+                                     Height="150" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="#404040" BorderThickness="0,0,0,1" Padding="4">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock Grid.Row="0" Text="{Binding Description}"
+                                                          FontWeight="Bold" TextWrapping="Wrap"/>
+                                                <Grid Grid.Row="1" Margin="0,4,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <ProgressBar Grid.Column="0" Value="{Binding Progress}"
+                                                                Height="8" Margin="0,0,8,0"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding Progress, StringFormat={}{0:P0}}"
+                                                              FontSize="10"/>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </GroupBox>
+
+                        <!-- Workspace Files -->
+                        <GroupBox Header="Workspace" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <TreeView x:Name="WorkspaceTreeView" Background="#1a1a1a" Foreground="#e0e0e0"
+                                     BorderBrush="#404040" ItemsSource="{Binding Workspace.Files}">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </GroupBox>
+
+                        <!-- Quick Actions -->
+                        <GroupBox Header="Quick Actions" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <Button Content="New Project" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="NewProjectButton_Click" Margin="0,2"/>
+                                <Button Content="Analyze Code" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="AnalyzeCodeButton_Click" Margin="0,2"/>
+                                <Button Content="Generate Report" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="GenerateReportButton_Click" Margin="0,2"/>
+                                <Button Content="Optimize System" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="OptimizeSystemButton_Click" Margin="0,2"/>
+                                <Button Content="Backup Data" Style="{StaticResource RaijinButtonStyle}"
+                                        Click="BackupDataButton_Click" Margin="0,2"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- System Graphs -->
+                        <GroupBox Header="System Graphs" Style="{StaticResource RaijinGroupBoxStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Learning Progress" Margin="0,0,0,4"/>
+                                <ProgressBar Value="{Binding SystemGraphs.LearningProgress}" Height="12" Margin="0,0,0,8"/>
+
+                                <TextBlock Text="Neural Activity" Margin="0,0,0,4"/>
+                                <ProgressBar Value="{Binding SystemGraphs.NeuralActivity}" Height="12" Margin="0,0,0,8"/>
+
+                                <TextBlock Text="System Efficiency" Margin="0,0,0,4"/>
+                                <ProgressBar Value="{Binding SystemGraphs.SystemEfficiency}" Height="12" Margin="0,0,0,8"/>
+
+                                <TextBlock Text="Evolution Rate" Margin="0,0,0,4"/>
+                                <ProgressBar Value="{Binding SystemGraphs.EvolutionRate}" Height="12"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- Bottom Panel - Chat Interface -->
+        <Border Grid.Row="2" Background="#2d2d2d" BorderBrush="#404040" BorderThickness="0,1,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Chat History -->
+                <ListBox x:Name="ChatHistoryListBox" Grid.Row="0" Style="{StaticResource RaijinListBoxStyle}"
+                         ItemsSource="{Binding ChatInterface.Messages}"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         Margin="8">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#404040" BorderThickness="0,0,0,1" Padding="4">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Text="{Binding Sender}"
+                                              FontWeight="Bold" Foreground="#00aaff" Margin="0,0,8,0"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Content}"
+                                              TextWrapping="Wrap"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <!-- Chat Input -->
+                <Border Grid.Row="1" Background="#222222" BorderBrush="#404040" BorderThickness="0,1,0,0" Padding="8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="ChatInputTextBox" Grid.Column="0" Style="{StaticResource RaijinTextBoxStyle}"
+                                Text="{Binding ChatInterface.CurrentMessage, UpdateSourceTrigger=PropertyChanged}"
+                                KeyDown="ChatInputTextBox_KeyDown" Margin="0,0,8,0"
+                                AcceptsReturn="True" TextWrapping="Wrap" Height="60"/>
+
+                        <Button x:Name="SendButton" Grid.Column="1" Content="Send"
+                               Style="{StaticResource RaijinButtonStyle}"
+                               Click="SendButton_Click" Margin="0,0,8,0"/>
+
+                        <Button x:Name="SendNoInterruptButton" Grid.Column="2" Content="Send (No Int)"
+                               Style="{StaticResource RaijinButtonStyle}"
+                               Click="SendNoInterruptButton_Click"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,36 @@
+# Build
+obj/
+Bin/
+*.o
+*.obj
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.exp
+.vs/
+x64/
+x86/
+out/
+
+# Dependencies
+node_modules/
+
+# Embedded repo (add as submodule if needed)
+mcp-servers-source/
+
+# IDE / Editor
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs / temp
+*.log
+*.tmp
+.cache/

@@ -1,0 +1,5 @@
+{"ts":"2026-01-31T23:29:52.728Z","event":"preToolUse_deny","tool":"Write","path":"Bin/raijin.exe"}
+{"ts":"2026-01-31T23:33:18.147Z","event":"sessionStart","cid":"test123"}
+{"ts":"2026-01-31T23:33:20.509Z","event":"stop","status":"completed","loop_count":0,"core_edited":false}
+{"ts":"2026-01-31T23:33:31.003Z","event":"afterFileEdit","file":"Core\\Main\\raijin_main.cpp","edit_count":1,"core":true}
+{"ts":"2026-01-31T23:33:33.091Z","event":"stop","status":"completed","loop_count":0,"core_edited":true}

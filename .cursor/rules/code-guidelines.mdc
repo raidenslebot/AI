@@ -1,0 +1,32 @@
+---
+description: Code guidelines – verify info, preserve code, explicit names, security, tests
+alwaysApply: true
+---
+
+# Code Guidelines
+
+1. Verify information before presenting it; do not assume or speculate without evidence.
+2. Make changes file by file so mistakes can be spotted.
+3. Never use apologies.
+4. Avoid feedback about understanding in comments or documentation.
+5. Do not suggest whitespace-only changes.
+6. Do not summarize changes made.
+7. Do not invent changes beyond what is explicitly requested.
+8. Do not ask for confirmation of information already in context.
+9. Preserve existing code and structures; do not remove unrelated functionality.
+10. Provide all edits for the same file in a single chunk.
+11. Do not ask the user to verify implementations visible in context.
+12. Do not suggest updates when no modifications are needed.
+13. Provide real file paths, not context-generated placeholders.
+14. Do not show or discuss current implementation unless requested.
+15. Prefer descriptive, explicit variable names.
+16. Follow the existing coding style in the project.
+17. Prioritize performance where applicable.
+18. Consider security implications when modifying or suggesting code.
+19. Suggest or include unit tests for new or modified code.
+20. Implement robust error handling and logging where necessary.
+21. Apply modular design for maintainability and reusability.
+22. Ensure compatibility with the project's language and framework versions.
+23. Replace magic numbers with named constants.
+24. Consider and handle edge cases.
+25. Use assertions to validate assumptions where appropriate.

@@ -1,0 +1,71 @@
+---
+description: C++ programming guidelines – naming, functions, memory, testing, project structure
+globs: "**/*.c,**/*.cpp,**/*.h,**/*.hpp,**/*.cxx,**/*.cc,CMakeLists.txt,*.cmake,Makefile"
+alwaysApply: false
+---
+
+# C++ Programming Guidelines
+
+## Basic Principles
+
+- Use English for all code and documentation.
+- Always declare the type of each variable and function (parameters and return value).
+- Use Doxygen-style comments for public classes and methods.
+- Do not leave blank lines within a function.
+- Follow the one-definition rule (ODR).
+
+## Nomenclature
+
+- PascalCase for classes and structures.
+- camelCase for variables, functions, and methods.
+- ALL_CAPS for constants and macros.
+- snake_case for file and directory names.
+- Start each function with a verb; use verbs for booleans (isLoading, hasError, canDelete).
+- Use complete words except standard abbreviations (API, URL) or well-known (i, j, k, err, ctx, req, res).
+- Avoid magic numbers; define constants.
+
+## Functions
+
+- Short functions, single purpose, fewer than 20 instructions.
+- Avoid deep nesting: early checks/returns, extract to utilities.
+- Prefer standard library algorithms (std::for_each, std::transform, std::find).
+- Use lambdas for simple operations, named functions for non-simple.
+- Use default parameter values instead of null checks.
+- Reduce parameters via structs/classes; single level of abstraction.
+
+## Data
+
+- Encapsulate data in composite types; avoid abusing primitives.
+- Prefer immutability; use const, constexpr, std::optional.
+
+## Classes
+
+- Follow SOLID; prefer composition over inheritance.
+- Small classes: single purpose, under 200 instructions, under 10 public methods, under 10 properties.
+- Rule of Five/Zero for resources; private members with getters/setters as needed; const-correctness.
+
+## Exceptions and Errors
+
+- Use exceptions for unexpected errors.
+- Use std::optional, std::expected, or error codes for expected failures.
+
+## Memory
+
+- Prefer smart pointers (std::unique_ptr, std::shared_ptr); use RAII.
+- Prefer std::vector and standard containers over C-style arrays.
+
+## Testing
+
+- Arrange-Act-Assert; name test variables inputX, mockX, actualX, expectedX.
+- Unit tests for public functions; integration tests per module.
+
+## Project Structure
+
+- include/ for headers, src/ for source, test/ for tests, lib/ for libraries.
+- Separate interface (.h) from implementation (.cpp); use namespaces (core, utils).
+- Use CMake or similar.
+
+## Standard Library and Concurrency
+
+- Prefer C++ standard library: std::string, std::vector, std::map, std::optional, std::filesystem, std::chrono.
+- Use std::thread, std::mutex, std::lock_guard; prefer task-based parallelism; use std::atomic; avoid data races.

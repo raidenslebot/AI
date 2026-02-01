@@ -1,0 +1,15 @@
+---
+description: C# and WPF/XAML guidelines – modular structure, performance, clarity
+globs: "**/*.cs,**/*.xaml"
+alwaysApply: false
+---
+
+# C# and WPF Guidelines
+
+- Use C# and WPF (.NET 6+) conventions; ensure mechanics are clear and responsive.
+- Prefer modular code structure for easier updates and feature additions.
+- Optimize for performance where it matters (UI thread, bindings, startup).
+- Use PascalCase for types and public members; camelCase for local variables and parameters.
+- Prefer async/await over blocking calls; use ICommand and MVVM patterns for XAML binding.
+- Keep views thin; put logic in view models or services.
+- Use nullable reference types and explicit null handling where appropriate.

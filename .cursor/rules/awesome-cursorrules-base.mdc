@@ -1,0 +1,11 @@
+---
+description: Raijin project context and coding guidelines
+alwaysApply: true
+---
+
+# Raijin AI - Project Rules
+
+- Focus on project-specific instructions and best practices.
+- Use clear, concise language; provide context on what you're building.
+- Raijin: Neural processing, Evolution engine, Internet acquisition, Programming domination, Autonomous management, Hardware abstraction layer.
+- C++/C# for core; Python for tooling. Follow language-specific guidelines.

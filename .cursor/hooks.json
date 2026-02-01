@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [{ "command": "node .cursor/hooks/session-start.js", "timeout": 5 }],
+    "sessionEnd": [{ "command": "node .cursor/hooks/session-end.js", "timeout": 5 }],
+    "preToolUse": [{ "command": "node .cursor/hooks/pre-tool-use.js", "timeout": 3 }],
+    "postToolUseFailure": [{ "command": "node .cursor/hooks/post-tool-failure.js", "timeout": 5 }],
+    "subagentStart": [{ "command": "node .cursor/hooks/subagent-start.js", "timeout": 3 }],
+    "subagentStop": [{ "command": "node .cursor/hooks/subagent-stop.js", "timeout": 5 }],
+    "beforeReadFile": [{ "command": "node .cursor/hooks/before-read-file.js", "timeout": 5 }],
+    "beforeShellExecution": [{ "command": "node .cursor/hooks/block-dangerous-shell.js", "timeout": 3 }],
+    "beforeMCPExecution": [{ "command": "node .cursor/hooks/before-mcp.js", "timeout": 3 }],
+    "afterShellExecution": [{ "command": "node .cursor/hooks/after-shell.js", "timeout": 5 }],
+    "afterMCPExecution": [{ "command": "node .cursor/hooks/after-mcp.js", "timeout": 5 }],
+    "afterFileEdit": [{ "command": "node .cursor/hooks/after-file-edit.js", "timeout": 5 }],
+    "afterAgentResponse": [{ "command": "node .cursor/hooks/after-agent-response.js", "timeout": 5 }],
+    "preCompact": [{ "command": "node .cursor/hooks/pre-compact.js", "timeout": 3 }],
+    "stop": [{ "command": "node .cursor/hooks/stop.js", "timeout": 5 }],
+    "afterTabFileEdit": [{ "command": "node .cursor/hooks/after-tab-edit.js", "timeout": 5 }]
+  }
+}

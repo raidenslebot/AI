@@ -1,0 +1,289 @@
+<Window x:Class="RaijinUI.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RaijinUI"
+        mc:Ignorable="d"
+        Title="Raijin Settings - ECGI Configuration"
+        Height="600" Width="800"
+        WindowStartupLocation="CenterOwner"
+        Background="#1a1a1a"
+        Foreground="#e0e0e0"
+        FontFamily="Consolas"
+        FontSize="12"
+        Icon="Resources/raijin.ico">
+
+    <Window.Resources>
+        <Style x:Key="RaijinButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#2d2d2d"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#3d3d3d"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#252525"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RaijinTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#252525"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+
+        <Style x:Key="RaijinCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="Margin" Value="0,4"/>
+        </Style>
+
+        <Style x:Key="RaijinGroupBoxStyle" TargetType="GroupBox">
+            <Setter Property="Background" Value="#222222"/>
+            <Setter Property="Foreground" Value="#e0e0e0"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="4"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Main Settings Content -->
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="8">
+
+                <!-- General Settings -->
+                <GroupBox Header="General Settings" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <StackPanel>
+                        <CheckBox Content="Start Raijin automatically on system boot"
+                                  IsChecked="{Binding GeneralSettings.AutoStart}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Minimize to system tray when closed"
+                                  IsChecked="{Binding GeneralSettings.MinimizeToTray}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Show notifications for important events"
+                                  IsChecked="{Binding GeneralSettings.ShowNotifications}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable sound effects"
+                                  IsChecked="{Binding GeneralSettings.EnableSounds}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable hardware acceleration"
+                                  IsChecked="{Binding GeneralSettings.HardwareAcceleration}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Ethics & Learning Settings -->
+                <GroupBox Header="Ethics & Learning" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Learning Rate:" Margin="0,0,0,4"/>
+                        <Slider x:Name="LearningRateSlider" Minimum="0.1" Maximum="2.0" Value="{Binding EthicsSettings.LearningRate}"
+                                TickFrequency="0.1" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ElementName=LearningRateSlider, Path=Value, StringFormat='Rate: {0:F1}'}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Value Retention Period (days):" Margin="0,0,0,4"/>
+                        <Slider x:Name="RetentionSlider" Minimum="1" Maximum="365" Value="{Binding EthicsSettings.ValueRetentionDays}"
+                                TickFrequency="30" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ElementName=RetentionSlider, Path=Value, StringFormat='Days: {0:F0}'}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <CheckBox Content="Allow personality evolution"
+                                  IsChecked="{Binding EthicsSettings.AllowPersonalityEvolution}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Require explicit user confirmation for ethical decisions"
+                                  IsChecked="{Binding EthicsSettings.RequireEthicalConfirmation}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Learn from user corrections automatically"
+                                  IsChecked="{Binding EthicsSettings.LearnFromCorrections}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Neural Network Settings -->
+                <GroupBox Header="Neural Network Configuration" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Neural Population Size:" Margin="0,0,0,4"/>
+                        <Slider x:Name="PopulationSlider" Minimum="10" Maximum="1000" Value="{Binding NeuralSettings.PopulationSize}"
+                                TickFrequency="50" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ElementName=PopulationSlider, Path=Value, StringFormat='Size: {0:F0}'}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Evolution Generations per Cycle:" Margin="0,0,0,4"/>
+                        <Slider x:Name="EvolutionSlider" Minimum="1" Maximum="100" Value="{Binding NeuralSettings.EvolutionGenerations}"
+                                TickFrequency="5" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ElementName=EvolutionSlider, Path=Value, StringFormat='Generations: {0:F0}'}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <CheckBox Content="Enable GPU acceleration for neural processing"
+                                  IsChecked="{Binding NeuralSettings.EnableGpuAcceleration}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Use hyper-dimensional embeddings"
+                                  IsChecked="{Binding NeuralSettings.UseHyperDimensionalEmbeddings}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable entropy-driven computation"
+                                  IsChecked="{Binding NeuralSettings.EnableEntropyComputation}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Hardware Control Settings -->
+                <GroupBox Header="Hardware Control" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <StackPanel>
+                        <TextBlock Text="CPU Usage Limit (%):" Margin="0,0,0,4"/>
+                        <Slider x:Name="CpuLimitSlider" Minimum="10" Maximum="100" Value="{Binding HardwareSettings.CpuUsageLimit}"
+                                TickFrequency="5" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ElementName=CpuLimitSlider, Path=Value, StringFormat='Limit: {0:F0}%'}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <TextBlock Text="GPU Usage Limit (%):" Margin="0,0,0,4"/>
+                        <Slider x:Name="GpuLimitSlider" Minimum="10" Maximum="100" Value="{Binding HardwareSettings.GpuUsageLimit}"
+                                TickFrequency="5" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ElementName=GpuLimitSlider, Path=Value, StringFormat='Limit: {0:F0}%'}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <TextBlock Text="Memory Usage Limit (%):" Margin="0,0,0,4"/>
+                        <Slider x:Name="MemoryLimitSlider" Minimum="10" Maximum="90" Value="{Binding HardwareSettings.MemoryUsageLimit}"
+                                TickFrequency="5" IsSnapToTickEnabled="True" Margin="0,0,0,8"/>
+                        <TextBlock Text="{Binding ElementName=MemoryLimitSlider, Path=Value, StringFormat='Limit: {0:F0}%'}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+                        <CheckBox Content="Allow dynamic frequency scaling"
+                                  IsChecked="{Binding HardwareSettings.AllowDynamicFrequencyScaling}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable thermal management"
+                                  IsChecked="{Binding HardwareSettings.EnableThermalManagement}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Allow firmware modifications (dangerous)"
+                                  IsChecked="{Binding HardwareSettings.AllowFirmwareModifications}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Screen & Control Settings -->
+                <GroupBox Header="Screen Observation & Control" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Screen capture interval (ms):" Margin="0,0,0,4"/>
+                        <TextBox Text="{Binding ScreenSettings.CaptureIntervalMs, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource RaijinTextBoxStyle}" Margin="0,0,0,8"/>
+
+                        <CheckBox Content="Enable real-time screen analysis"
+                                  IsChecked="{Binding ScreenSettings.EnableRealTimeAnalysis}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Allow automated program control"
+                                  IsChecked="{Binding ScreenSettings.AllowAutomatedControl}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Use human-like input patterns"
+                                  IsChecked="{Binding ScreenSettings.UseHumanLikePatterns}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable OCR for text recognition"
+                                  IsChecked="{Binding ScreenSettings.EnableOcr}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Internet & Knowledge Settings -->
+                <GroupBox Header="Internet & Knowledge Acquisition" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Daily knowledge acquisition limit (MB):" Margin="0,0,0,4"/>
+                        <TextBox Text="{Binding InternetSettings.DailyKnowledgeLimitMb, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource RaijinTextBoxStyle}" Margin="0,0,0,8"/>
+
+                        <CheckBox Content="Enable autonomous web browsing"
+                                  IsChecked="{Binding InternetSettings.EnableAutonomousBrowsing}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Respect robots.txt and terms of service"
+                                  IsChecked="{Binding InternetSettings.RespectRobotsTxt}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Use anonymization (VPN/Tor)"
+                                  IsChecked="{Binding InternetSettings.UseAnonymization}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable multi-modal content processing"
+                                  IsChecked="{Binding InternetSettings.EnableMultiModalProcessing}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Programming & Code Settings -->
+                <GroupBox Header="Programming & Code Domination" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <StackPanel>
+                        <CheckBox Content="Enable code analysis and optimization"
+                                  IsChecked="{Binding ProgrammingSettings.EnableCodeAnalysis}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Allow autonomous code generation"
+                                  IsChecked="{Binding ProgrammingSettings.AllowAutonomousCodeGeneration}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable compiler optimization discovery"
+                                  IsChecked="{Binding ProgrammingSettings.EnableCompilerOptimization}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Allow firmware code modification"
+                                  IsChecked="{Binding ProgrammingSettings.AllowFirmwareModification}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable self-modification capabilities"
+                                  IsChecked="{Binding ProgrammingSettings.EnableSelfModification}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Safety & Security Settings -->
+                <GroupBox Header="Safety & Security" Style="{StaticResource RaijinGroupBoxStyle}">
+                    <StackPanel>
+                        <CheckBox Content="Enable emergency stop mechanisms"
+                                  IsChecked="{Binding SafetySettings.EnableEmergencyStop}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Require confirmation for dangerous operations"
+                                  IsChecked="{Binding SafetySettings.RequireConfirmationForDangerousOps}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable automatic system backups"
+                                  IsChecked="{Binding SafetySettings.EnableAutomaticBackups}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Log all system activities"
+                                  IsChecked="{Binding SafetySettings.LogAllActivities}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                        <CheckBox Content="Enable hardware watchdog timer"
+                                  IsChecked="{Binding SafetySettings.EnableHardwareWatchdog}"
+                                  Style="{StaticResource RaijinCheckBoxStyle}"/>
+                    </StackPanel>
+                </GroupBox>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Bottom Button Panel -->
+        <Border Grid.Row="1" Background="#2d2d2d" BorderBrush="#404040" BorderThickness="0,1,0,0" Padding="8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Reset to Defaults" Style="{StaticResource RaijinButtonStyle}"
+                        Click="ResetToDefaultsButton_Click" Margin="0,0,8,0"/>
+                <Button Content="Cancel" Style="{StaticResource RaijinButtonStyle}"
+                        Click="CancelButton_Click" Margin="0,0,8,0"/>
+                <Button Content="Save Settings" Style="{StaticResource RaijinButtonStyle}"
+                        Background="#00aa00" Click="SaveSettingsButton_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

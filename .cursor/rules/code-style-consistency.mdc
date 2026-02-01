@@ -1,0 +1,22 @@
+---
+description: Code style consistency – analyze codebase patterns and match existing style
+alwaysApply: true
+---
+
+# Code Style Consistency
+
+Before generating or suggesting code, analyze the codebase for:
+
+- Naming (camelCase, snake_case, PascalCase), indentation (spaces/tabs, size), comment style.
+- Function/method size, error handling, import/module organization.
+- Paradigm (functional vs OOP), file layout, testing and state management.
+- Bracket and spacing style.
+
+Methodology:
+
+1. Examine 3–5 representative files.
+2. Identify consistent patterns; note inconsistencies.
+3. Prioritize recently modified files as current standards.
+4. Build a style profile; ensure suggestions conform.
+
+Do not refactor beyond scope. Match comment style, variable naming, and paradigm. Prefer existing libraries. Mirror organization of similar modules. If styles conflict, ask rather than assume.

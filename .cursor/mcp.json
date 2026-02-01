@@ -1,0 +1,40 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "c:\\Raijin"]
+    },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"]
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "sequentialthinking": {
+      "command": "node",
+      "args": ["c:\\Raijin\\mcp-servers-source\\src\\sequentialthinking\\dist\\index.js"]
+    },
+    "time": {
+      "command": "uvx",
+      "args": ["mcp-server-time"]
+    },
+    "database": {
+      "command": "node",
+      "args": ["c:\\Raijin\\mcp-servers-source\\src\\database\\dist\\index.js"]
+    },
+    "container": {
+      "command": "node",
+      "args": ["c:\\Raijin\\mcp-servers-source\\src\\container\\dist\\index.js"]
+    },
+    "testing": {
+      "command": "node",
+      "args": ["c:\\Raijin\\mcp-servers-source\\src\\testing\\dist\\index.js"]
+    }
+  }
+}
