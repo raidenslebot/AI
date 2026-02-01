@@ -34,3 +34,6 @@ Thumbs.db
 *.log
 *.tmp
 .cache/
+
+# Worktrees (isolated branches; do not track)
+.worktrees/
