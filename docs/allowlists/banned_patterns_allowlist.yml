@@ -1,0 +1,26 @@
+# Banned-pattern allowlist: bootstrapping stubs with expiry and tracking.
+# Each entry allows specific phrases in a file until remove_by.
+# Format: file, allowed_phrases, reason, remove_by, owner_role, notes.
+# Add entries when Guard fails but the finding is an intentional dev stub.
+
+# Example (uncomment and edit when you add real allowlist entries):
+# - file: Core/HAL/hal_13700k.cpp
+#   allowed_phrases:
+#     - "Simulated value"
+#     - "simulated for development"
+#     - "Placeholder"
+#   reason: HAL development stubs until real MSR/hardware read
+#   remove_by: "2026-06-01"
+#   owner_role: implementer
+#   notes: Replace with actual CPUID/MSR or document as unsupported
+
+# - file: Core/Evolution/evolution_engine.cpp
+#   allowed_phrases:
+#     - "Stub implementations"
+#     - "For now, run synchronously"
+#   reason: GA stubs until full algorithm set implemented
+#   remove_by: "post-bootstrap"
+#   owner_role: implementer
+#   notes:
+
+# Leave list empty (no entries) to require zero banned patterns for Guard PASS.
